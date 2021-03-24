@@ -17,10 +17,9 @@ namespace ariel {
 
     void Board::post(unsigned int row, unsigned int col, Direction d, string message) {
         unsigned int newsize = 0;
-        unsigned int count;
+        unsigned int count = 0;
 
         if (full == 0) {
-            cout << "hellofull" << endl;
             full = 1;
             vector<char> tmp (col + message.length());
             fill(tmp.begin(), tmp.end(), '_');
@@ -32,15 +31,12 @@ namespace ariel {
 
 
         if (d == Direction::Horizontal) {
-            cout << "hello1" << endl;
             if (row > showboard.size()) {
-                cout << "hellorow1" << endl;
                 newsize = row - showboard.size();
                 resizerow(showboard, newsize, message.length());
             }
             
             if (col + message.length() > showboard[0].size()) {
-                cout << "hellocol1" << endl;
                 newsize = col + message.length();
                 resizecol(showboard, newsize, showboard.size());   
             }
@@ -52,13 +48,11 @@ namespace ariel {
         }
         else {
             if (row + message.length() > showboard.size()) {
-                cout << "hellorow2" << endl;
                 newsize = row + message.length() - showboard.size();
                 resizerow(showboard, newsize, showboard[0].size());
             }
 
             if (col > showboard[0].size()) {
-                cout << "hellocol2" << endl;
                 resizecol(showboard, col, showboard.size());
             }
 
@@ -76,29 +70,19 @@ namespace ariel {
             for (unsigned int i = col; i < col + length; i++) {
                 printit += showboard[row][i];
 	        }
-            // if (printit.length() < length) {
-            //     for (unsigned int i = printit.length(); i < length ; i++) {
-            //         printit += '_';
-            //     }
-            // }
 
         }
         else {
             for (unsigned int i = row; i < row + length; i++) {
                 printit += showboard[i][col];
 	        }
-            // if (printit.length() < length) {
-            //     for (unsigned int i = printit.length(); i < length ; i++) {
-            //         printit += '_';
-            //     }
-            // }
 	    }
 
         return printit;
     }
 
     void Board::show() {
-        for (vector<char> row: showboard) {
+        for (vector<char> &row: showboard) {
             for (char val: row) {
             	cout << val << " ";
             }
